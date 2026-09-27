@@ -17,6 +17,8 @@ public class ColorBlock : MonoBehaviour
     private SpriteRenderer breakingPicture;
     private BoxCollider2D solid;
     private PlayerMovement player;
+    private CollectableInventory collectables;
+    private Color originalColor;
 
     private Vector2 startingSize;
     private Vector2 startingOffset;
@@ -29,17 +31,22 @@ public class ColorBlock : MonoBehaviour
     {
         picture = GetComponent<SpriteRenderer>();
         solid = GetComponent<BoxCollider2D>();
+        originalColor = picture.color;
 
         blockColor = picture.color.grayscale >= 0.5f
             ? WorldColor.White
             : WorldColor.Black;
     }
 
-    public void Show(bool visible)
+    public void Show(bool visible, bool revealHidden = false)
     {
         if (breaking || broken) return;
 
-        picture.enabled = visible;
+        picture.enabled = visible || revealHidden;
+        Color displayColor = originalColor;
+        // Revealed blocks are visual hints only; their collision stays unchanged.
+        if (!visible && revealHidden) displayColor.a *= 0.4f;
+        picture.color = displayColor;
         solid.enabled = visible;
     }
 
@@ -48,6 +55,7 @@ public class ColorBlock : MonoBehaviour
         if (!isPlatform || breaking || broken) return;
 
         player = standingPlayer;
+        collectables = standingPlayer.GetComponent<CollectableInventory>();
         breaking = true;
         duration = Mathf.Max(0.05f, breakTime);
         timeLeft = duration;
@@ -60,7 +68,7 @@ public class ColorBlock : MonoBehaviour
 
         breakingPicture = visual.AddComponent<SpriteRenderer>();
         breakingPicture.sprite = picture.sprite;
-        breakingPicture.color = picture.color;
+        breakingPicture.color = originalColor;
         breakingPicture.sortingLayerID = picture.sortingLayerID;
         breakingPicture.sortingOrder = picture.sortingOrder;
 
@@ -72,7 +80,8 @@ public class ColorBlock : MonoBehaviour
     {
         if (!breaking) return;
 
-        timeLeft -= Time.deltaTime;
+        if (collectables == null || !collectables.IsFreezeActive)
+            timeLeft -= Time.deltaTime;
 
         if (timeLeft <= 0f)
         {
