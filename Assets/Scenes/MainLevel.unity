@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 21140348}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.41, y: 3.74, z: 0}
+  m_LocalPosition: {x: 0, y: 1.4, z: 0}
   m_LocalScale: {x: 1.32, y: 0.12, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1789,6 +1789,7 @@ GameObject:
   m_Component:
   - component: {fileID: 720242562}
   - component: {fileID: 720242563}
+  - component: {fileID: 720242564}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Untagged
@@ -1805,7 +1806,7 @@ Transform:
   m_GameObject: {fileID: 720242561}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30, y: 1.96, z: 0}
+  m_LocalPosition: {x: 36.39, y: 4.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1860,6 +1861,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.2, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &720242564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720242561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 413dd89c429ad8a49878b88b5d5f7ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoalTrigger
 --- !u!1 &738087957
 GameObject:
   m_ObjectHideFlags: 0
@@ -2849,7 +2862,7 @@ Transform:
   m_GameObject: {fileID: 1265313891}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.78, y: 2.72, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 0.12, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3041,7 +3054,7 @@ Transform:
   m_GameObject: {fileID: 1437738128}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.98, y: 2.71, z: 0}
+  m_LocalPosition: {x: -0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 0.12, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3236,7 +3249,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 16, y: -3.65, z: 0}
-  m_LocalScale: {x: 42, y: 1.5, z: 1}
+  m_LocalScale: {x: 50, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1099247939}
