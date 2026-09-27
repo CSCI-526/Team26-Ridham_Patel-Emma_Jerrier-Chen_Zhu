@@ -11,10 +11,13 @@ public class WorldSwitch : MonoBehaviour
     private ColorBlock[] blocks;
     private int reachedPlatform = 0;
     private int switchCount = 0;
+    private CollectableInventory collectables;
+    private bool revealActive;
 
     private void Start()
     {
         movement = GetComponent<PlayerMovement>();
+        collectables = GetComponent<CollectableInventory>();
         playerPicture = GetComponent<SpriteRenderer>();
         blocks = FindObjectsByType<ColorBlock>(FindObjectsSortMode.None);
 
@@ -23,6 +26,13 @@ public class WorldSwitch : MonoBehaviour
 
     private void Update()
     {
+        bool shouldReveal = collectables != null && collectables.IsRevealActive;
+        if (shouldReveal != revealActive)
+        {
+            revealActive = shouldReveal;
+            RefreshWorld();
+        }
+
         ColorBlock standingOn = movement.GetPlatform();
 
         if (standingOn != null && standingOn.order > reachedPlatform)
@@ -41,7 +51,7 @@ public class WorldSwitch : MonoBehaviour
 
         switchCount++;
 
-            standingOn.BeginBreak(movement);
+        standingOn.BeginBreak(movement);
 
         RefreshWorld();
     }
@@ -62,7 +72,7 @@ public class WorldSwitch : MonoBehaviour
             bool visible = block.blockColor == playerColor &&
                            (!block.isPlatform || closeEnough);
 
-            block.Show(visible);
+            block.Show(visible, revealActive);
         }
 
         if (p1Hint != null && p1 != null)
@@ -79,7 +89,8 @@ public class WorldSwitch : MonoBehaviour
         style.normal.textColor = Color.white;
 
         GUI.Label(
-            new Rect(0, 25, Screen.width, 45),
+            // Leave the top row clear for the collectable inventory.
+            new Rect(0, Mathf.Max(25f, 96f * Screen.width / 960f), Screen.width, 45),
             "PRESS LEFT SHIFT TO SWITCH COLORS",
             style
         );
